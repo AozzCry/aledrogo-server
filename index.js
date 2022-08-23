@@ -13,6 +13,7 @@ const { limiter } = require("./utils/rateLimiter");
 const { productRouter } = require("./routes/product");
 const { authRouter } = require("./routes/auth");
 const { userRouter } = require("./routes/user");
+const { wishlistRouter } = require("./routes/wishlist");
 const { reviewModel } = require("./model/review.model");
 const { reviewRouter } = require("./routes/review");
 
@@ -71,6 +72,7 @@ app.use("/", authRouter);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/review", reviewRouter);
+app.use("/wishlist", wishlistRouter);
 
 app.listen(process.env.PORT, process.env.HOST, () =>
   console.info(

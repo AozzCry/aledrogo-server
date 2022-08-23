@@ -1,20 +1,20 @@
 const checkIsAuth = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+    if (req.isAuthenticated()) {
+        return next();
+    }
 
-  res.json("U have to login first.");
+    res.status(401).json('U have to login first.');
 };
 
 const checkIsNotAuth = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return res.json("U have to login first.");
-  }
+    if (req.isAuthenticated()) {
+        return res.json('U have to login first.');
+    }
 
-  next();
+    next();
 };
 
 module.exports = {
-  checkIsAuth,
-  checkIsNotAuth,
+    checkIsAuth,
+    checkIsNotAuth,
 };

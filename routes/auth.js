@@ -25,7 +25,7 @@ authRouter
 
     User.findOne({ email: email }, async (err, user) => {
       if (err) throw err;
-      if (user) res.json("User Already Exists");
+      if (user) res.status(401).json("User Already Exists");
       if (!user) {
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -33,6 +33,7 @@ authRouter
           email,
           name,
           password: hashedPassword,
+          avatar: "avatars/default.png",
         });
 
         res.json("User Created successfully.");
@@ -42,10 +43,7 @@ authRouter
 
   .post("/logout", function (req, res, next) {
     req.logout(function (err) {
-      if (err) {
-        return next(err);
-      }
-      res.json("Logged out.");
+      req.session.destroy(function (err) {});
     });
   });
 

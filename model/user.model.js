@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
 
-const { productSchema: product } = require("./product.model");
-
 const userModel = new Schema({
   email: {
     type: String,
@@ -11,6 +9,8 @@ const userModel = new Schema({
   },
   name: { type: String, required: true },
   password: { type: String, required: true },
+  wishlist: [String],
+  avatar: String,
 });
 
 module.exports = model("User", userModel);

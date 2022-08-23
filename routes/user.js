@@ -8,15 +8,16 @@ const {
   getUser,
   editUserInfo,
   getUserProduct,
+  setAvatar,
 } = require("../controllers/user.controller");
 
 userRouter
-  .get("/", checkIsAuth, (req, res) => {
+  .get("/", (req, res) => {
     const { user } = req;
     try {
-      res.json(getUser(user));
+      res.status(200).json(getUser(user));
     } catch (e) {
-      res.status(404).json("User Not Found.");
+      res.status(404).json(e.message);
     }
   })
 
@@ -25,7 +26,7 @@ userRouter
 
     try {
       editUserInfo(user, body);
-      res.json(`User info saved.`);
+      res.status(200).json("User info saved.");
     } catch (e) {
       res.status(304).json(e);
     }
@@ -35,10 +36,18 @@ userRouter
     const { user } = req;
     try {
       const products = await getUserProduct(user);
-
-      res.json(products);
+      res.status(200).json(products);
     } catch (e) {
       res.status(404).json("Products not found");
+    }
+  })
+
+  .post("/avatar", checkIsAuth, async (req, res) => {
+    try {
+      await setAvatar(req, res);
+      res.status(200).json("Avatar updated successfully.");
+    } catch (e) {
+      res.json(e.message);
     }
   });
 

@@ -30,6 +30,8 @@ module.exports = function (passport) {
         _id: user._id,
         email: user.email,
         name: user.name,
+        wishlist: user.wishlist,
+        avatar: user.avatar,
       };
       done(err, userInformation);
     });

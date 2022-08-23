@@ -29,23 +29,22 @@ productRouter
     try {
       const product = await getOne(id);
 
-      res.status(302).json(product);
+      res.status(200).json(product);
     } catch (e) {
       res.status(404).json("Product not found.");
     }
   })
 
-  .post("/", async (req, res) => {
+  .post("/", checkIsAuth, async (req, res) => {
     try {
-      await create(req.body, req.user);
-
+      await create(req, res);
       res.status(201).json("Product added.");
     } catch (e) {
       res.status(400).json(e.message);
     }
   })
 
-  .put("/:id", async (req, res) => {
+  .put("/:id", checkIsAuth, async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -56,11 +55,11 @@ productRouter
     }
   })
 
-  .delete("/:id", async (req, res) => {
+  .delete("/:id", checkIsAuth, async (req, res) => {
     const { id } = req.params;
 
     try {
-      await del(id, req.user);
+      del(id, req.user);
       res.json("Product deleted.");
     } catch (e) {
       console.error(e);
