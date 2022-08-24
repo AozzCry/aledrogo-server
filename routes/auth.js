@@ -14,7 +14,7 @@ authRouter
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          res.json(info.message);
+          res.json({message: info.message, user: {_id: user._id,email: user.email, name: user.name, wishlist: user.wishlist, avatar: user.avatar}});
         });
       }
     })(req, res, next);

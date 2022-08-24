@@ -16,6 +16,7 @@ const { userRouter } = require("./routes/user");
 const { wishlistRouter } = require("./routes/wishlist");
 const { reviewModel } = require("./model/review.model");
 const { reviewRouter } = require("./routes/review");
+const {discountRouter} = require("./routes/discount");
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/review", reviewRouter);
 app.use("/wishlist", wishlistRouter);
+app.use('/codes', discountRouter);
 
 app.listen(process.env.PORT, process.env.HOST, () =>
   console.info(
