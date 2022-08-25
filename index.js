@@ -13,11 +13,22 @@ const { productRouter } = require("./routes/product");
 const { authRouter } = require("./routes/auth");
 const { userRouter } = require("./routes/user");
 const { wishlistRouter } = require("./routes/wishlist");
-const { reviewModel } = require("./model/review.model");
 const { reviewRouter } = require("./routes/review");
 const { discountRouter } = require("./routes/discount");
 
+//Conf
+const CORS =
+  process.env.MODE === "DEV"
+    ? "http://localhost:3000"
+    : "https://aledrogoshop.netlify.app";
+
+const COOKIE_SETTINGS =
+  process.env.MODE === "DEV"
+    ? { sameSite: true, httpOnly: false }
+    : { sameSite: "none", secure: true };
 const app = express();
+
+console.log(CORS, COOKIE_SETTINGS);
 
 //MongoDB Connect
 mongoose.connect(
@@ -34,22 +45,22 @@ mongoose.connect(
 //Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/public", express.static("public"));
 app.use(
   cors({
-    origin: "https://aledrogoshop.netlify.app",
+    origin: CORS,
     credentials: true,
   })
 );
-app.set("trust proxy", 1); // trust first proxy
+
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      sameSite: "none",
-      secure: true,
-    },
+    cookie: COOKIE_SETTINGS,
   })
 );
 
