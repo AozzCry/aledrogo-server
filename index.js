@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 const csrf = require("csurf");
@@ -16,7 +15,7 @@ const { userRouter } = require("./routes/user");
 const { wishlistRouter } = require("./routes/wishlist");
 const { reviewModel } = require("./model/review.model");
 const { reviewRouter } = require("./routes/review");
-const {discountRouter} = require("./routes/discount");
+const { discountRouter } = require("./routes/discount");
 
 const app = express();
 
@@ -37,7 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://aledrogoshop.netlify.app/",
     credentials: true,
   })
 );
@@ -47,15 +46,11 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      // domain: "localhost:3000",
-      // sameSite: false,
-      httpOnly: false,
-      // secure: true,
+      sameSite: "none",
+      secure: true,
     },
   })
 );
-
-// app.use(cookieParser("secretCode"));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -67,7 +62,7 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/review", reviewRouter);
 app.use("/wishlist", wishlistRouter);
-app.use('/codes', discountRouter);
+app.use("/codes", discountRouter);
 
 app.listen(process.env.PORT, process.env.HOST, () =>
   console.info(
