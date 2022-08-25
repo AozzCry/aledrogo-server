@@ -14,7 +14,16 @@ authRouter
       else {
         req.logIn(user, (err) => {
           if (err) throw err;
-          res.json({message: info.message, user: {_id: user._id,email: user.email, name: user.name, wishlist: user.wishlist, avatar: user.avatar}});
+          res.json({
+            message: info.message,
+            user: {
+              _id: user._id,
+              email: user.email,
+              name: user.name,
+              wishlist: user.wishlist,
+              avatar: user.avatar,
+            },
+          });
         });
       }
     })(req, res, next);
@@ -45,6 +54,7 @@ authRouter
     req.logout(function (err) {
       req.session.destroy(function (err) {});
     });
+    res.json("Logout successfully");
   });
 
 module.exports = {
