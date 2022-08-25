@@ -47,15 +47,15 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      // domain: "localhost:3000",
+      domain: "localhost:3000",
       sameSite: false,
-      //httpOnly: false,
+      httpOnly: false,
       secure: true,
     },
   })
 );
 
-// app.use(cookieParser("secretCode"));
+app.use(cookieParser("secretCode"));
 
 app.use(passport.initialize());
 app.use(passport.session());
