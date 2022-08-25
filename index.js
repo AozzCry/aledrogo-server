@@ -37,7 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://aledrogoshop.netlify.app",
     credentials: true,
   })
 );
@@ -47,10 +47,8 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      // domain: "localhost:3000",
-      // sameSite: false,
-      httpOnly: false,
-      // secure: true,
+      sameSite: 'none',
+      secure: true,
     },
   })
 );
