@@ -28,8 +28,6 @@ const COOKIE_SETTINGS =
     : { sameSite: "none", secure: true };
 const app = express();
 
-console.log(CORS, COOKIE_SETTINGS);
-
 //MongoDB Connect
 mongoose.connect(
   process.env.MONGO_URI,
