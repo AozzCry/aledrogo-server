@@ -1,6 +1,9 @@
 const Product = require("../model/product.model");
 const { upload } = require("../utils/multerAlbum");
 
+const fs = require("fs").promises;
+const path = require("path");
+
 const getAll = () => Product.find();
 
 const getOne = (id) => Product.findOne({ _id: id });
@@ -52,12 +55,17 @@ const update = async (id, body) => {
   });
 };
 
-const del = (id) => {
+const del = (id, user, res) => {
   Product.findOne({ _id: id }, (err, product) => {
     if (err) throw err;
-    if (!product) return "Product not found.";
+    if (!product) return res.json("Product not found.");
+
+    product.images_url.forEach((productImg) =>
+      fs.unlink(path.join(__dirname, "..", productImg))
+    );
 
     product.remove();
+    res.json("Product deleted.");
   });
 };
 

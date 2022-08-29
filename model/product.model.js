@@ -8,7 +8,7 @@ const productModel = new Schema({
   count: { type: Number, min: 0 },
   desc: String,
   images_url: [String],
-  category: { type: [String], index: true },
+  category: [String],
   reviews: [reviewSchema],
   userId: String,
   timesBought: Number,

@@ -59,8 +59,7 @@ productRouter
     const { id } = req.params;
 
     try {
-      del(id, req.user);
-      res.json("Product deleted.");
+      del(id, req.user, res);
     } catch (e) {
       console.error(e);
       res.status(418).json("No content");
