@@ -70,7 +70,7 @@ app.use("/user", userRouter);
 app.use("/product", productRouter);
 app.use("/review", reviewRouter);
 app.use("/wishlist", wishlistRouter);
-app.use("/codes", discountRouter);
+app.use("/discount", discountRouter);
 
 app.listen(process.env.PORT, process.env.HOST, () =>
   console.info(
