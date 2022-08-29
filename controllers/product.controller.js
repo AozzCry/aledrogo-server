@@ -38,7 +38,7 @@ const create = async (req, res) => {
 };
 
 const update = async (id, body) => {
-  const { name, price, count, desc, image_url, category, reviews } = body;
+  const { name, price, count, desc, category, reviews } = body;
 
   Product.findOne({ _id: id }, (err, product) => {
     if (err) throw err;
@@ -48,7 +48,6 @@ const update = async (id, body) => {
     product.price = price ? price : product.price;
     product.count = count ? count : product.count;
     product.desc = desc ? desc : product.desc;
-    product.image_url = image_url ? image_url : product.image_url;
     product.category = category ? category : product.category;
     product.reviews = reviews ? reviews : product.reviews;
     product.save();
